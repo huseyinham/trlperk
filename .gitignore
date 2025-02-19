@@ -129,5 +129,7 @@ dmypy.json
 .pyre/
 
 # tf state
-*.tfstate
-.terraform/*
+*.tfstate*
+**/.terraform/*
+**/.terraform.lock.hcl
+**/.terraform.tfstate.d

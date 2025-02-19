@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+    - master # I personally would deploy from a tag instead
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-terraform@v3
+
+      - name: Deploy Terraform
+        # I am not sure how Github Environments work but effectively I would variablise these and 
+        # pass them it at the correct env deploy  
+        run: |
+            cd ${filepath}
+            terraform workspace new ${env}_${region} | true
+            terraform init
+            terraform apply -var-file="../../variables/${env}_${region}.tfvars"-auto-approve
+
+
+

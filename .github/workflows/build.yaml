@@ -1,0 +1,22 @@
+name: Run Python Tests
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # I personally would look at putting the tests into a Dockerfile too so they effectively run the same locally as CI
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+            apt install python3-pytest
+
+      - name: Run Tests
+        run: pytest
